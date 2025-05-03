@@ -32,6 +32,6 @@ jobs:
         - name: Deploy the site through sftp
           run: |
             mkdir -p ${HOME}/mnt
-            sshfs -d eirb_docs: ${HOME}/mnt
+            timeout 10 sshfs -d -odebug,sshfs_debug,loglevel=debug eirb_docs: ${HOME}/mnt
             cp -r mkdocs/site/* ${HOME}/mnt/nginx/www
             umount ${HOME}/mnt
