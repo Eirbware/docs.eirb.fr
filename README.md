@@ -13,9 +13,16 @@ suivant : https://squidfunk.github.io/mkdocs-material/getting-started/
 
 ## Développement
 
-Ce dépôt propose un fichier `docker-compose.yml`, il sert **uniquement au
-développement et à la compilation**. Le but étant de ne pas avoir à installer
-`mkdocs` pour pouvoir contribuer à ce dépôt.
+Ce dépôt utilise [docker](https://docs.docker.com/engine/install/) afin de
+compiler et de créer un environnement de développement.
+
+Le but étant de ne pas avoir à installer `mkdocs` pour pouvoir contribuer à ce
+dépôt. De plus, il suffit d'exécuter la commande suivante pour supprimer les
+fichiers compilés et les images docker téléchargées :
+
+```sh
+make mrproper
+```
 
 ### Démarrer le serveur de développement
 
@@ -23,7 +30,7 @@ développement et à la compilation**. Le but étant de ne pas avoir à installe
 faisant :
 
 ```sh
-docker compose up -d
+make dev
 ```
 
 ### Modifications du site
