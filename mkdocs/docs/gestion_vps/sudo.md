@@ -1,7 +1,7 @@
 # Utilisation de `sudo`
 
 Une utilisation incorrecte de `sudo` mène généralement à une utilisation non
-prévue du serveur (cf [historique de l'architecture](architecture.md#historique-de-larchitecture)).
+prévue du serveur (cf [historique de l'architecture](../architecture.md#historique-de-larchitecture)).
 
 ## Whitelist des programmes disponibles
 

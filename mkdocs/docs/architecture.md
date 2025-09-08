@@ -157,4 +157,4 @@ Voici globalement les dossiers utilisés pour créer l'architecture d'Eirbware
 À noter, le dossier de configuration du `nginx` principal est `/etc/nginx`,
 celui de `wireguard` est `/etc/wireguard` et celui de `sshd` est `/etc/sshd`.
 
-Pour plus de détails, référez-vous à la page de [gestion du VPS](gestion_vps.md).
+Pour plus de détails, référez-vous à la page de [gestion du VPS](./gestion_vps/intro.md).

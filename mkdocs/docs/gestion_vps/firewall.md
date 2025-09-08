@@ -20,7 +20,7 @@ conseillons [cet article](https://www.redhat.com/en/blog/beginners-guide-firewal
 
 ### Utilisation de `crowdsec`
 
-Comme décrit dans [l'architecture globale](architecture.md), `crowdsec` a
+Comme décrit dans [l'architecture globale](../architecture.md), `crowdsec` a
 besoin **d'accéder en lecture aux logs** qu'il analyse.
 
 Pour simplifier sa mise en place, `crowdsec` est lancé dans un docker rootful,
