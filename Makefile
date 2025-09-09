@@ -1,22 +1,29 @@
+MKDOCS_IMAGE := squidfunk/mkdocs-material:latest
 
-.PHONY: all
-all:
+MKDOCS := docker run --rm -u $(shell id -u) -v ./mkdocs:/docs $(MKDOCS_IMAGE)
+MKDOCS_DEV := docker run --rm -u $(shell id -u) -v ./mkdocs:/docs -p 8000:8000 $(MKDOCS_IMAGE)
 
-.PHONY: dev
+PHONY += all
+all: build
+
+PHONY += dev
 dev:
-	docker compose up -d
+	$(MKDOCS_DEV)
 
-.PHONY: build
+PHONY += build
 build:
-	docker compose up -d
-	docker exec mkdocs mkdocs build
+	$(MKDOCS) build
 
-.PHONY: start
+PHONY += start
 start:
 	python -m http.server 8080 -d mkdocs/site
 
-
-.PHONY:clean
+PHONY += clean
 clean:
-	sudo ${RM} -r mkdocs/site
-	docker compose down
+	${RM} -r mkdocs/site
+
+PHONY += mrproper
+mrproper: clean
+	docker rmi $(MKDOCS_IMAGE)
+
+.PHONY: $(PHONY)
