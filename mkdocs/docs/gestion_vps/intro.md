@@ -5,4 +5,4 @@ beaucoup).
 
 Cette page se concentre sur les détails techniques associés à chaque aspect du
 VPS, il est **vivement conseillé** de bien avoir en tête
-[l'architecture globale du serveur.](architecture.md)
+[l'architecture globale du serveur.](../architecture.md)
