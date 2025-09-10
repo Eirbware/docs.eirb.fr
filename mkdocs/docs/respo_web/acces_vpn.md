@@ -26,32 +26,40 @@ est un fichier de configuration pour `wireguard`.
 
 ## Installer un logiciel pour se connecter
 
-Il vous faudra télécharger un
-[client pour `wireguard`](https://www.wireguard.com/install/).
+!!! note "Sous Linux"
+
+    Il est conseillé d'utiliser `NetworkManager` pour gérer la connexion VPN
+    sous Linux, le script servant de client officiel de `wireguard` sous Linux
+    est `wg-quick`, cependant, il [peut y avoir des conflits entre ce script et `NetworkManager`](https://bbs.archlinux.org/viewtopic.php?id=281344).
+
+Allez sur la [page de téléchargement des clients pour `wireguard`](https://www.wireguard.com/install/), et installez celui pour votre système d'exploitation
 
 ### Se connecter sous linux
 
-Normalement, vous avez téléchargé un client `wireguard` en utilisant le
-gestionnaire de paquets de votre distribution.
+Dans un terminal, exécutez la commande suivante afin d'importer la
+configuration `wireguard` dans `NetworkManager` :
 
-Le paquet que vous avez installé vous a normalement installé le script
-`wg-quick`, vous pourrez vous connecter au `VPN` en utilisant la commande
-suivante dans un `shell` :
-
-```sh title="Commande pour se connecter au VPN sous linux"
-wg-quick up ./wg_eirb.conf
+```sh title="Commande pour importer la configuration wireguard dans NetworkManager"
+nmcli connection import type wireguard file "<CHEMIN VERS LE FICHIER wg_eirb.conf>"
 ```
 
-!!! warning "Chemin vers la config `wireguard`"
+Puis, exécutez les commande suivante :
 
-    Vous devez spécifier un chemin **relatif ou absolu** vers la configuration
-    `wireguard`, comme `./wg_eirb.conf` ou `/tmp/wg_eirb.conf`, sinon
-    `wg-quick` essayera de trouver le fichier dans `/etc/wireguard`.
+```sh title="Commande pour désactiver la connexion automatique au VPN"
+nmcli connection modify wg_eirb connection.autoconnect no
+nmcli connection down wg_eirb
+```
 
-Pour vous déconnecter, exécutez :
+À partir de là, vous pouvez vous connecter en exécutant :
 
-```sh title="Commande pour se déconnecter du VPN sous linux"
-wg-quick down ./wg_eirb.conf
+```sh title="Commande pour se connecter au VPN"
+nmcli connection up wg_eirb
+```
+
+et pour vous déconnecter :
+
+```sh title="Commande pour se déconnecter du VPN"
+nmcli connection down wg_eirb
 ```
 
 ### Se connecter sous Windows
