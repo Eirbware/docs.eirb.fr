@@ -20,17 +20,16 @@ Afin de créer un service, il suffit d'utiliser la commande `new_site`, dont le 
 
 ## Désactivation d'un service 
 
-Pour pouvoir temporairement désactiver un service, il faut utiliser la commande `disable_site` de la manière suivante: 
+Pour pouvoir désactiver un service, il faut utiliser la commande `down_site` de la manière suivante: 
 
 ```title="Désactivation d'un site"
-sudo disable_site www-<nom_site>
+sudo down_site www-<nom_site>
 ```
 
 Pour le réactiver, il suffit d'utiliser la même commande avec l'option `-r`
 
-!!!info "Ce que la commande ne fait pas"
-
-    Cette commande désactive juste la redirection vers le service, mais elle n'arrête pas le docker associé
+!!!info 
+    Il existe aussi la commande `disable_site` qui elle rend le site inaccessible sans l'arrêter.
 
 ## Archivage d'un service
 
