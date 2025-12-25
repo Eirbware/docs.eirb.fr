@@ -31,22 +31,21 @@ Pour le réactiver, il suffit d'utiliser la même commande avec l'option `-r`
 !!!info 
     Il existe aussi la commande `disable_site` qui elle rend le site inaccessible sans l'arrêter.
 
-## Archivage d'un service
+## Sites statiques 
 
 Chaque service ayant son propre démon docker, qui consomme une quantité non négligeable de mémoire, la multiplication des sites (notamment ceux des listes) font que le serveur sera rapidement saturé en mémoire.
 
-Pour éviter cela, un service d'archive a été créé, dans lequel tous les sites qui n'ont pas vocation à être modifiés à l'avenir (tels que les sites des anciennes listes) sont hébergés.
+Pour éviter cela, un service spécial a été créé, qui permet de réunir les sites statiques sous un seul et même démon docker, tout en laissant la possibilités au respos web de pouvoir les modifier avec `sftp`.
 
-La commande a utiliser pour archiver un site est 
-```title="Archivage d'un site"
-sudo archive_site www-<nom-site>
+La commande a utiliser pour mettre un service dans cette catégorie est:
+```title="Conversion d'un site en site statique"
+sudo make_site_static www-<nom-site>
 ```
 
-Il est possible de désarchiver un site avec l'option `-r`
+Il est possible d'annuler l'opération avec l'option `-r`
 
-!!!warning "Ne pas oublier d'archiver les sites de listes"
-    
-    Afin de préserver une consommation de mémoire raisonnable, il est très important une fois les campagnes passées d'archiver les sites de liste
+!!!warning "Tous les services ne peuvent pas être statiques"
+    Seuls les services respecant respectant la structure par défaut (celle crée par `new_site`) peuvent être convertis en sites statiques, exécuter la commande sur un service n'ayant pas cette structure le laissera dans un état non défini
 
 ## Obfuscation d'un service
 
