@@ -19,6 +19,10 @@ nav:
     - gestion_vps/monitoring.md
   - Passation: passation.md
   - Github: github.md
+  - CI/CD: 
+    - ci/ci.md
+    - ci/static.md
+    - ci/docker.md
   - HOWTO respo web:
     - respo_web/intro.md
     - respo_web/ajout_site.md
