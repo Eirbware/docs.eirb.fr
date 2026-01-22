@@ -31,7 +31,18 @@ Les paramètres de ce job sont:
 * `artifact_name` (ignoré par défaut): Le nom de l'artéfact donné au job (voir [ici](https://docs.github.com/en/actions/concepts/workflows-and-actions/workflow-artifacts) pour la documentation sur le sujet)
 * `artifact_path` (ignoré par défaut, obligatoire si `artifact_name` est non nul): Le chemin de l'artéfact donné au job
 
-Les secrets demandés par ce job sont `registry_username` et `registry_api_key`, contactez nous pour les obtenir
+Ensuite, ce job a besoin de 2 secrets: `registry_username` et `registry_api_key`.
+
+Si vous n'avez pas le `registry_username`, contactez-nous pour créer un compte, ce secret sera l'email associé au compte (plus de détails [ici](../gestion_vps/registry.md) pour le côté administrateur).
+
+Une fois que cela est fait, connectez vous avec ce compte sur [le registry](https://registry.eirb.fr), puis en haut à gauche accédez à l'écran `API keys`. 
+A partir de là, vous pouvez créer une clé api, que vous devrez mettre dans le secret `registry_api_key`.
+
+!!!info 
+    Nous vous conseillons de créer une clé api par service, afin de pouvoir éventuellement supprimer/renouveler une clé d'un service sans affecter les autres.
+
+!!!warning 
+    Lors de la création de la clé, une date d'expiration doit être fixée, n'oubliez pas de renouveler la clé si la date est proche !
 
 ## Déploiement
 

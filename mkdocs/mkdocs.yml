@@ -17,6 +17,7 @@ nav:
     - gestion_vps/ssh.md
     - gestion_vps/vpn.md
     - gestion_vps/monitoring.md
+    - gestion_vps/registry.md
   - Passation: passation.md
   - Github: github.md
   - CI/CD: 
