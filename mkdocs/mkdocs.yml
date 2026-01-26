@@ -21,10 +21,6 @@ nav:
     - gestion_vps/keycloak.md
   - Passation: passation.md
   - Github: github.md
-  - CI/CD: 
-    - ci/ci.md
-    - ci/static.md
-    - ci/docker.md
   - HOWTO respo web:
     - respo_web/intro.md
     - respo_web/ajout_site.md
@@ -32,8 +28,8 @@ nav:
     - respo_web/acces_vpn.md
     - respo_web/maj_site.md
     - respo_web/connexion_cas.md
+    - respo_web/ci.md
     - respo_web/conseils.md
-
   - About: about.md
 theme:
   name: material
