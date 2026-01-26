@@ -34,3 +34,5 @@ Voici une liste plus timide que vous pouvez utiliser :
 Pour pouvoir vous utiliser OpenID, vous devrez utiliser un secret, vous le
 trouverez avec une configuration dans le dossier du site web que vous maintenez.
 
+!!!info 
+    Afin de faciliter le développement, il est possible d'utiliser OpenID en développement si l'application est à l'addresse `http://localhost:8080`
