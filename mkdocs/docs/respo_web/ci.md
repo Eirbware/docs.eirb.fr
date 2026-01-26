@@ -1,8 +1,48 @@
-# Les services conteneurisées
+# La CI/CD à Eirbware
+
+Afin de faciliter la maintenance ainsi que le déploiement des services proposés par Eirbware ainsi que les sites internets des clubs/assos, nous avons mis en place des méthodes de déploiement automatique.
+
+Ces méthodes reposent sur des github actions, qui permettent à chaque push/merge dans la branche principale d'un repo d'exécuter des commandes.
+
+Celles dont nous nous servont sont définies dans [ce dépôt](https://github.com/Eirbware/.github/), comme des actions réutilisables (dans le dossier `.github/workflows`).
+
+Ainsi, pour utiliser une de nos actions, on peut définir un job ayant cette forme:
+```yaml
+  build-and-push:
+    permissions:
+      id-token: write 
+    uses: Eirbware/.github/.github/workflows/build-and-publish.yml@master
+    with:
+      file: "./Dockerfile"
+      image_name: ${{ github.repository }}
+    secrets: 
+      registry_username: ${{ secrets.registry_username }}
+      registry_api_key: ${{ secrets.registry_api_key }}
+```
+
+Il y 2 types d'entrées à ces jobs:
+
+- Les paramètres, sous l'option `with`
+- Les secrets, sous l'option `secrets`, qui contient les données sensibles dont le job a besoin
+
+!!!warning 
+    Il est vivement conseillé d'utiliser les jobs de cette façon pour déployer sur notre serveur, ainsi si un changement survient il n'y aura pas de modification à faire sur les dépôts utilsant l'action.
+
+!!!info 
+    Pour définir les secrets et les utiliser comme vu au dessus, il faut aller dans les options du dépôt, dans secrets and variables et dans actions
+
+!!!info 
+    Pour les services étant sous l'organisation github d'Eirbware, on peut aussi utiliser `secrets: inherit`
+
+## Les services statiques
+
+ça arrive fort
+
+## Les services conteneurisées
 
 Le déploiement des services conteneurisées se fait en 2 parties: le build/publish de l'image et le déploiement de celle-ci.
 
-## Build/Push
+### Build/Push
 
 Le job permettant de faire cela a cette forme:
 ```yaml
@@ -44,21 +84,21 @@ A partir de là, vous pouvez créer une clé api, que vous devrez mettre dans le
 !!!warning 
     Lors de la création de la clé, une date d'expiration doit être fixée, n'oubliez pas de renouveler la clé si la date est proche !
 
-## Déploiement
+### Déploiement
 
 Afin de déployer le service sur notre serveur, il faut maintenant automatiquement pull l'image du registry après l'avoir build et push.
 
-### Docker compose
+#### Docker compose
 
 Dans le dépôt du service, il faut d'abord créer un fichier docker compose qui sera celui utilisé par le serveur.
 Ainsi dans cette configuration aucune image ne doit être build, car elles devront toutes être pull depuis une registry public ou notre registry.
 
 Un exemple de ce genre de configuration est le [wiki](https://github.com/Eirbware/wiki.eirb.fr/):
 ```yaml
-# MediaWiki with MariaDB (https://hub.docker.com/_/mediawiki)
-#
-# Access via "http://localhost:8080"
-#   (or "http://$(docker-machine ip):8080" if using docker-machine)
+## MediaWiki with MariaDB (https://hub.docker.com/_/mediawiki)
+##
+## Access via "http://localhost:8080"
+##   (or "http://$(docker-machine ip):8080" if using docker-machine)
 services:
   mediawiki:
     image: registry.eirb.fr/eirbware/wiki.eirb.fr:main
@@ -101,7 +141,7 @@ services:
     restart: unless-stopped
 ```
 
-### Portainer
+#### Portainer
 
 Afin de gérer les différents environments, nous utilisons [portainer](https://www.portainer.io/), donc pour pouvoir déployer un service conteneurisé sur notre infrastructure, il faut d'abord que nous vous donnions accès à un environment.
 
@@ -119,7 +159,7 @@ Enfin, il ne reste plus qu'à ajouter les variables d'environment et à mettre l
 
 Une fois que cela est fait, si l'image n'a pas encore été publiée, le conteneur ne pourra pas être lancé. Veillez donc à exécuter l'action définie précédemment avant de procéder.
 
-### Dire à portainer de mettre à jour le service
+#### Dire à portainer de mettre à jour le service
 
 Enfin, rajouter un job au workflow ayant cette forme:
 ```yaml
