@@ -1,0 +1,34 @@
+name: Deploy static website
+
+on: 
+  push:
+    branches : [ "main" ]
+    tags: [ 'v*.*.*' ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: build site
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build docs.eirb.fr
+        run: |
+          make build
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: buid
+          path: ${{ github.workspace }}/mkdocs/site
+          include-hidden-files: true
+  
+  deploy:
+    needs: build
+    uses: Eirbware/.github/.github/workflows/deploy-static.yml@master
+    with:
+      remote_user: "www-docs"
+      directory_to_copy: "./mkdocs/site"
+      artifact_name: build
+      artifact_path: ./mkdocs/site
+    secrets: inherit
