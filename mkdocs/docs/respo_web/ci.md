@@ -36,7 +36,28 @@ Il y 2 types d'entrées à ces jobs:
 
 ## Les services statiques
 
-ça arrive fort
+Pour les sites statiques, nous mettons à disposition un job permettant de copier les fichiers du site vers le serveur. 
+Ce job a cette forme:
+```yaml
+deploy-static:
+    uses: Eirbware/.github/.github/workflows/deploy-static.yml@master
+    with:
+        remote_user: "www-eirb"
+        directory_to_copy: "./dist"
+    secrets: 
+        ssh_secret_key: ${{ secrets.ssh_private_key }}
+        ssh_public_key: ${{ secrets.ssh_public_key }}
+        ssh_cert: ${{ secrets.ssh_cert }}
+```
+
+Ce job va copier les fichiers présents dans le dossier `directory_to_copy` (ici `dist`) dans le dossier `www-<user>/nginx/www` via sftp.
+
+Les paramètres de ce job sont:
+
+* `remote_user` (obligatoire): Le nom de l'utilisateur sur nos serveurs (usuellement `www-<nom-du-service>`)
+* `directory_to_copy` (obligatoire): Le dossier source, contenant les fichiers du site
+* `artifact_name` (ignoré par défaut): Nom de l'artéfact à utiliser (voir [ici](https://docs.github.com/en/actions/concepts/workflows-and-actions/workflow-artifacts) pour la documentation sur le sujet)
+* `artifact_path` (ignoré par défaut, obligatoire si `artifact_name` est non nul): Chemin vers lequel l'artéfact doit être copié 
 
 ## Les services conteneurisées
 
