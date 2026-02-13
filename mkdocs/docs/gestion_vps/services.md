@@ -47,6 +47,12 @@ Il est possible d'annuler l'opération avec l'option `-r`
 !!!warning "Tous les services ne peuvent pas être statiques"
     Seuls les services respecant respectant la structure par défaut (celle crée par `new_site`) peuvent être convertis en sites statiques, exécuter la commande sur un service n'ayant pas cette structure le laissera dans un état non défini
 
+Cette commande copie tous les dossiers du site statique donné dans un dossier spécial du service `www-listeold`, sauf le dossier `nginx/www` et le fichier `nginx/php/auth-config.php`, pour lesquels on créera un lien symbolique.
+
+Ceci permet de lancer tous les conteneurs sur `www-listeold`, économisant beaucoup de démons docker tout en permettant aux mainteneurs des sites de modifier celui-ci.
+
+Afin de s'assurer que l'utilisateur `www-listeold` puisse utiliser les fichiers, on change le propriétaire des dossiers copiés, et on s'assure qu'à tout moment les fichiers des dossiers liés puissent être lus par `www-listeold` avec le service `keep_authorisations_on_static_sites`.
+
 ## Obfuscation d'un service
 
 Il peut arriver (notamment pour les sites de liste) qu'il faille donner accès à un site avant que sont nom de domaine soit public. 
