@@ -30,6 +30,7 @@ nav:
     - respo_web/connexion_cas.md
     - respo_web/ci.md
     - respo_web/conseils.md
+    - respo_web/eirbconnect_documentation.md
   - About: about.md
 theme:
   name: material
