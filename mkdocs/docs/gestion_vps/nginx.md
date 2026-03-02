@@ -70,3 +70,14 @@ On peut y retrouver :
 └── hardening.conf      # Configurations diverses de sécurité
 ```
 
+## La page 404
+
+La page 404 est un cas particulier, car étant stockée directement dans `/etc/nginx/page404`. 
+La redirection vers la page 404 est configurée dans `/etc/nginx/nginx.conf`.
+
+Cette page a une fonctionnalité particulière, car elle cherche automatiquement l'url valide la plus proche de celle entrée par l'utilisateur.
+Pour cela, il faut une liste des adresses valides et qui sont accessibles à tout utilisateur.
+Cette liste est générée par le service `update_page404_url_list`, qui à partir des fichiers dans `/etc/nginx/sites-enabled` et `/etc/nginx/redir-enabled`.
+
+De plus, une liste de noire de sites est en place (aussi dans `/etc/nginx/page404`), qui contient les services qui ne doivent pas être accédés par un utilisateur normal (`vpn.eirb.fr` par exemple). 
+Elle est automatiquement mise à jour lorsqu'un site est obfusqué/déofbusqué (voir [ici](services.md#obfuscation-dun-service)).
