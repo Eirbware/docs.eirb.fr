@@ -29,14 +29,14 @@ Le protocole fonctionne en deux temps, une fonction *login*, qui fait une premi�
 ## Le login 
 Nous allons créer une route */login*, que le frontend doit rediriger lorsque besoin s'en sent (cela peut être après un fetch à un */api/me* afin de vérifier si l'utilisateur est loggué, à adapter en fonction de vos besoins).
 ```js
-const { redirect_url, code_verifier, state} = await login(`https://VOTRE_BACKEND/auth/callback`);
+const { redirectUrl, code_verifier, state} = await login(`https://VOTRE_BACKEND/auth/callback`);
 
     //Save in the session 
     req.session.code_verifier = code_verifier;
     req.session.state = state;
 
     //Redirection of the user 
-    res.redirect(redirect_url);
+    res.redirect(redirectUrl);
 ```
 
 Ici, le code va appeller notre fonction login, et cette fonction retourne *redirect_url*, *code_verifier*, *state*, des informations indispensables pour la suite du protocole.
